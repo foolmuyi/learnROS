@@ -11,6 +11,8 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
+  geometry_msgs
+  message_generation
 )
 
 ## System dependencies are found with CMake's conventions
@@ -47,11 +49,14 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
-#   Message2.msg
-# )
+add_message_files(
+  FILES
+  Person.msg
+)
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+)
 
 ## Generate services in the 'srv' folder
 # add_service_files(
@@ -107,6 +112,7 @@ catkin_package(
 #  LIBRARIES learning_communication
 #  CATKIN_DEPENDS roscpp rospy std_msgs
 #  DEPENDS system_lib
+CATKIN_DEPENDS geometry_msgs roscpp rospy std_msgs message_runtime
 )
 
 ###########
@@ -116,9 +122,17 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
+  include
   ${catkin_INCLUDE_DIRS}
 )
+
+add_executable(talker src/talker.cpp)
+target_link_libraries(talker ${catkin_LIBRARIES})
+add_dependencies(talker ${PROJECT_NAME}_generate_messages_cpp)
+
+add_executable(listener src/listener.cpp)
+target_link_libraries(listener ${catkin_LIBRARIES})
+add_dependencies(talker ${PROJECT_NAME}_generate_messages_cpp)
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
