@@ -1,8 +1,0 @@
-prefix=/home/muyi/catkin_ws/devel
-
-Name: ros_tutorials
-Description: Description of ros_tutorials
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/muyi/catkin_ws/devel/lib 
-Requires: 
