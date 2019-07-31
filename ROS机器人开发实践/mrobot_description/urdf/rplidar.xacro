@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<robot name="laser" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+	<xacro:property name="rplidar_radius" value="0.03"/>
+	<xacro:property name="rplidar_height" value="0.05"/>
+
+	<xacro:macro name="rplidar" params="prefix:=laser">
+
+		<link name="${prefix}_link">
+			<visual>
+				<origin xyz="0 0 0" rpy="0 0 0"/>
+				<geometry>
+					<cylinder radius="${rplidar_radius}" length="${rplidar_height}"/>
+				</geometry>
+				<material name="black"/>
+			</visual>
+			<collision>
+				<origin xyz="0 0 0" rpy="0 0 0"/>
+				<geometry>
+					<cylinder radius="${rplidar_radius}" length="${rplidar_height}"/>
+				</geometry>
+			</collision>
+		</link>
+	</xacro:macro>
+</robot>
